@@ -1,0 +1,19 @@
+{
+    "files": [],
+    "compilerOptions": {
+        "typeRoots": ["./src/types"],
+        "target": "es6",
+        "lib": ["dom", "dom.iterable", "esnext", "ES2023"]
+    },
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        },
+        {
+            "path": "./tsconfig.app.json"
+        },
+        {
+            "path": "./tsconfig.vitest.json"
+        }
+    ]
+}

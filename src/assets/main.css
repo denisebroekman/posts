@@ -1,0 +1,136 @@
+@import './base.css';
+
+#app {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    font-weight: normal;
+}
+
+a {
+    text-decoration: none;
+    color: var(--purple-600);
+    transition: 0.4s;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 600;
+}
+h1 {
+    font-size: 3rem;
+}
+h2 {
+    font-size: 2.5rem;
+}
+
+.title--posts {
+    color: var(--white);
+    margin-bottom: 3rem;
+}
+
+.title--actions {
+    padding: 3rem 2rem;
+    color: var(--grey-600);
+}
+
+.content-box--shadow {
+    background: var(--white);
+    border-radius: 0.5rem;
+    box-shadow: 0.3rem 0.3rem 0.7rem 0px var(--shadow-800);
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.content-box--border {
+    border: 1px solid var(--grey-200);
+}
+
+.content-box__two-column {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav--post-order {
+    min-height: 5rem;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav--post-order a {
+    display: block;
+    transition: transform 80ms ease-in-out;
+}
+.nav--post-order a:hover {
+    transform: scale(1.2);
+}
+
+.action-list {
+    background: var(--grey-100);
+    padding: 2rem;
+}
+
+.action-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+.action-item:not(:last-child) {
+    border-bottom: 1px solid var(--grey-200);
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.loading {
+    color: var(--white);
+    font-size: 3rem;
+    position: absolute;
+    display: block;
+    animation: spin 1s steps(8) infinite;
+}
+
+.pulse {
+    display: block;
+    transform: scale(1);
+    animation: pulse 1.5s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (hover: hover) {
+    a:hover {
+        color: var(--purple-800);
+    }
+}
+
+@media (min-width: 1024px) {
+    #app {
+        max-width: 110rem;
+    }
+
+    .wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+    }
+}
