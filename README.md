@@ -1,7 +1,7 @@
 # Frontend Engineer Assignment
 
-To install, run `yarn`
-To run the test suite, run `yarn test`
+-   To install, run `yarn`
+-   To run the test suite, run `yarn test`
 
 Deployed application: https://denisebroekman.github.io/posts/
 
