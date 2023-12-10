@@ -1,6 +1,13 @@
 # Frontend Engineer Assignment
 
-# Technology and frameworks
+To install, run `yarn`
+To run the test suite, run `yarn test`
+
+Deployed application: https://denisebroekman.github.io/posts/
+
+# Original assignment:
+
+## Technology and frameworks
 
 We use **Vue 2/3.** But if you prefer to use other frameworks (e.g. React), feel free to set up the assignment with your tools of choice.
 
@@ -8,13 +15,13 @@ We also use **Tailwind** for styling, but you can use vanilla CSS or any framewo
 
 Finally, we prefer to use **TypeScript**, so it is a plus for you to showcase the use of it, but you are allowed to use any Javascript flavor.
 
-# Assignment: Sortable post list
+## Assignment: Sortable post list
 
 Please see the following screenshot for the design to build.
 
 ![Untitled](https://temper.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe7d34d66-3d57-486e-a824-2109a58aba6e%2FUntitled.png?table=block&id=b64d1385-d969-424e-981f-d42547fbd14d&spaceId=3a24cf7a-a13a-40ee-9ded-f4d63d8c2d5a&width=2000&userId=&cache=v2)
 
-## Business requirements
+### Business requirements
 
 The left side component (post list) should load its initial state from https://jsonplaceholder.typicode.com/posts, allow the user to update the state via manipulating the UI, and emit the list of actions committed on the right side component (list of actions committed).
 
