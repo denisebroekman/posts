@@ -17,43 +17,41 @@ const canMoveDown = () => props.index < props.max - 1;
 </script>
 
 <template>
-    <article class="content-box--shadow">
-        <div class="content-box__two-column">
-            <slot name="title"></slot>
-            <nav class="nav--post-order">
-                <a
-                    v-if="canMoveUp()"
-                    href="#"
-                    @click="
-                        onClick({
-                            currentIndex: index,
-                            targetIndex: index - 1,
-                        })
-                    "
-                >
+    <li class="content-box--shadow content-box__two-column">
+        <slot name="title"></slot>
+        <nav class="nav--post-order">
+            <a
+                v-if="canMoveUp()"
+                href="#"
+                @click="
+                    onClick({
+                        currentIndex: index,
+                        targetIndex: index - 1,
+                    })
+                "
+            >
+                <font-awesome-icon
+                    icon="fa-solid fa-chevron-up"
+                    title="Move up"
+                />
+            </a>
+            <a
+                v-if="canMoveDown()"
+                href="#"
+                @click="
+                    onClick({
+                        currentIndex: index,
+                        targetIndex: index + 1,
+                    })
+                "
+            >
+                <i :class="{ pulse: pulse }">
                     <font-awesome-icon
-                        icon="fa-solid fa-chevron-up"
-                        title="Move up"
+                        icon="fa-solid fa-chevron-down"
+                        title="Move down"
                     />
-                </a>
-                <a
-                    v-if="canMoveDown()"
-                    href="#"
-                    @click="
-                        onClick({
-                            currentIndex: index,
-                            targetIndex: index + 1,
-                        })
-                    "
-                >
-                    <i :class="{ pulse: pulse }">
-                        <font-awesome-icon
-                            icon="fa-solid fa-chevron-down"
-                            title="Move down"
-                        />
-                    </i>
-                </a>
-            </nav>
-        </div>
-    </article>
+                </i>
+            </a>
+        </nav>
+    </li>
 </template>

@@ -1,6 +1,7 @@
 import './style/main.css';
 
 import { createApp } from 'vue';
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 
 import App from './App.vue';
 import router from './router';
@@ -17,5 +18,6 @@ library.add(faChevronUp, faChevronDown, faSpinner);
 const app = createApp(App);
 
 app.use(router);
+app.use(autoAnimatePlugin);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.mount('#app');

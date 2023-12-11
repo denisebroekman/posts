@@ -52,16 +52,18 @@ await fetchPosts().then(posts => {
     <div class="wrapper">
         <section>
             <h2 class="title--posts">Sortable post list</h2>
-            <PostItem
-                v-for="(post, index) in posts"
-                v-bind:key="post.id"
-                :index="index"
-                :pulse="!hasActions() && index === 0"
-                :max="maxPosts"
-                :onClick="handleMove"
-            >
-                <template #title>Post {{ post.id }}</template>
-            </PostItem>
+            <ul class="post-list" v-auto-animate>
+                <PostItem
+                    v-for="(post, index) in posts"
+                    v-bind:key="post.id"
+                    :index="index"
+                    :pulse="!hasActions() && index === 0"
+                    :max="maxPosts"
+                    :onClick="handleMove"
+                >
+                    <template #title>Post {{ post.id }}</template>
+                </PostItem>
+            </ul>
         </section>
         <section>
             <ActionList>
