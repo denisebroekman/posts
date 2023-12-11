@@ -52,14 +52,14 @@ const secondActionMock: Action = {
 const sortedPostsForFirstHistoryItemMock: Post[] = [
     {
         userId: 1,
-        id: 1,
-        title: 'Post 1',
+        id: 2,
+        title: 'Post 2',
         body: 'Lorem ipsum',
     },
     {
         userId: 1,
-        id: 2,
-        title: 'Post 2',
+        id: 1,
+        title: 'Post 1',
         body: 'Lorem ipsum',
     },
     {

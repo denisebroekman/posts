@@ -51,10 +51,14 @@ export function useActionHistory() {
         if (!actionHistory.value) return [];
 
         const sortArray = actionHistory.value[historyIndex].postOrder;
+
         const posts = allPosts.concat(); // allPosts should not be mutated
-        const orderedPostsForIndex = posts.sort(
-            (a, b) => sortArray[a.id] - sortArray[b.id]
-        );
+
+        const orderedPostsForIndex = posts
+            .filter(post => sortArray.includes(post.id))
+            .sort((a, b) => {
+                return sortArray.indexOf(a.id) - sortArray.indexOf(b.id);
+            });
 
         // remove current entry and all previous from the history array
         actionHistory.value?.splice(0, historyIndex + 1);

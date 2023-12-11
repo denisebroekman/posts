@@ -3,15 +3,12 @@ const props = defineProps<{
     index: number;
     max: number;
     pulse: boolean;
-    currentPosts: Post[] | undefined;
     onClick: ({
         targetIndex,
         currentIndex,
-        currentPosts,
     }: {
         targetIndex: number;
         currentIndex: number;
-        currentPosts: Post[] | undefined;
     }) => void;
 }>();
 
@@ -31,7 +28,6 @@ const canMoveDown = () => props.index < props.max - 1;
                         onClick({
                             currentIndex: index,
                             targetIndex: index - 1,
-                            currentPosts,
                         })
                     "
                 >
@@ -47,7 +43,6 @@ const canMoveDown = () => props.index < props.max - 1;
                         onClick({
                             currentIndex: index,
                             targetIndex: index + 1,
-                            currentPosts,
                         })
                     "
                 >

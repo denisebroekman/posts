@@ -16,23 +16,19 @@ const maxPosts = 5;
 const hasActions = () => actionHistory.value && actionHistory.value.length > 0;
 
 function handleMove({
-    currentPosts,
     targetIndex,
     currentIndex,
 }: {
-    currentPosts: Post[] | undefined;
     targetIndex: number;
     currentIndex: number;
 }) {
-    movePost({ targetIndex, currentIndex });
+    const postOrder = movePost({ targetIndex, currentIndex });
 
-    if (!currentPosts || currentPosts.length === 0) return;
-
-    const postOrder = currentPosts.map(post => post.id);
+    if (!posts.value || posts.value.length === 0) return;
 
     addActionToHistory({
         postOrder,
-        currentPost: currentPosts[currentIndex],
+        currentPost: posts.value[targetIndex],
         currentIndex,
         targetIndex,
     });
@@ -61,7 +57,6 @@ await fetchPosts().then(posts => {
                 v-bind:key="post.id"
                 :index="index"
                 :pulse="!hasActions() && index === 0"
-                :currentPosts="posts"
                 :max="maxPosts"
                 :onClick="handleMove"
             >

@@ -28,16 +28,19 @@ export function usePosts() {
     }: {
         targetIndex: number;
         currentIndex: number;
-    }) {
+    }): number[] {
         if (
             !posts.value ||
             targetIndex > posts.value.length - 1 ||
             targetIndex < 0
         )
-            return;
+            return [];
 
         // create shallow copy for manipulation to avoid side effects
         const updatedPosts = posts.value.concat();
+
+        // map over posts before altering to store array of ids for rewind
+        const postOrder = updatedPosts.map(post => post.id) || [];
 
         // to move the post, an option is to splice once and just swap current and target indices,
         // but that wouldn't cover a future scenario where we might like to implement a drag event
@@ -48,6 +51,8 @@ export function usePosts() {
         updatedPosts.splice(targetIndex, 0, currentPost);
 
         updatePosts({ updatedPosts });
+
+        return postOrder;
     }
 
     return { posts, updatePosts, movePost };
