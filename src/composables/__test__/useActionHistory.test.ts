@@ -1,29 +1,32 @@
 import { expect, test, describe, beforeEach } from 'vitest';
 import { useActionHistory } from '../useActionHistory';
 
-const { actionHistory, addActionToHistory, rewindHistory } = useActionHistory();
+const { actionHistory, addActionToHistory, rewindHistory, setPostsForHistory } =
+    useActionHistory();
+
+const allPostsMock: Post[] = [
+    {
+        userId: 1,
+        id: 1,
+        title: 'Post 1',
+        body: 'Lorem ipsum',
+    },
+    {
+        userId: 1,
+        id: 2,
+        title: 'Post 2',
+        body: 'Lorem ipsum',
+    },
+    {
+        userId: 1,
+        id: 3,
+        title: 'Post 3',
+        body: 'Lorem ipsum',
+    },
+];
 
 const firstActionMock: Action = {
-    postsSnapshot: [
-        {
-            userId: 1,
-            id: 1,
-            title: 'Post 1',
-            body: 'Lorem ipsum',
-        },
-        {
-            userId: 1,
-            id: 2,
-            title: 'Post 2',
-            body: 'Lorem ipsum',
-        },
-        {
-            userId: 1,
-            id: 3,
-            title: 'Post 3',
-            body: 'Lorem ipsum',
-        },
-    ],
+    postOrder: [1, 2, 3],
     currentPost: {
         userId: 1,
         id: 1,
@@ -35,26 +38,7 @@ const firstActionMock: Action = {
 };
 
 const secondActionMock: Action = {
-    postsSnapshot: [
-        {
-            userId: 1,
-            id: 2,
-            title: 'Post 2',
-            body: 'Lorem ipsum',
-        },
-        {
-            userId: 1,
-            id: 1,
-            title: 'Post 1',
-            body: 'Lorem ipsum',
-        },
-        {
-            userId: 1,
-            id: 3,
-            title: 'Post 3',
-            body: 'Lorem ipsum',
-        },
-    ],
+    postOrder: [2, 1, 3],
     currentPost: {
         userId: 1,
         id: 1,
@@ -65,11 +49,33 @@ const secondActionMock: Action = {
     targetIndex: 2,
 };
 
+const sortedPostsForFirstHistoryItemMock: Post[] = [
+    {
+        userId: 1,
+        id: 1,
+        title: 'Post 1',
+        body: 'Lorem ipsum',
+    },
+    {
+        userId: 1,
+        id: 2,
+        title: 'Post 2',
+        body: 'Lorem ipsum',
+    },
+    {
+        userId: 1,
+        id: 3,
+        title: 'Post 3',
+        body: 'Lorem ipsum',
+    },
+];
+
 const firstActionHistoryMock: Action[] = [firstActionMock];
 const secondActionHistoryMock: Action[] = [secondActionMock, firstActionMock];
 
 beforeEach(() => {
     actionHistory.value = [];
+    setPostsForHistory({ posts: allPostsMock });
 });
 
 describe('useActionHistory', () => {
@@ -92,15 +98,15 @@ describe('useActionHistory', () => {
 
         expect(actionHistory.value).toStrictEqual(firstActionHistoryMock);
     });
-    test('rewindHistory should return the correct page snapshot for the rewound history', async () => {
+    test('rewindHistory should return the correct page object when rewinding to the first action in the list', async () => {
         addActionToHistory(firstActionMock);
         addActionToHistory(secondActionMock);
 
         const snapshot = rewindHistory({
-            historyIndex: 1,
+            historyIndex: 0,
         });
 
-        expect(snapshot).toStrictEqual(firstActionMock.postsSnapshot);
+        expect(snapshot).toStrictEqual(sortedPostsForFirstHistoryItemMock);
     });
     test('rewindHistory should empty out the history array if the last action was rewound', async () => {
         addActionToHistory(firstActionMock);

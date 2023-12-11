@@ -6,7 +6,7 @@ type Post = {
 };
 
 type Action = {
-    postsSnapshot: Post[];
+    postOrder: number[];
     currentPost: Post;
     currentIndex: number;
     targetIndex: number;

@@ -9,7 +9,8 @@ import ActionList from './PostOverview/ActionList.vue';
 import ActionItemPlaceholder from './PostOverview/ActionItemPlaceholder.vue';
 
 const { posts, updatePosts, movePost } = usePosts();
-const { actionHistory, addActionToHistory, rewindHistory } = useActionHistory();
+const { actionHistory, addActionToHistory, rewindHistory, setPostsForHistory } =
+    useActionHistory();
 
 const maxPosts = 5;
 const hasActions = () => actionHistory.value && actionHistory.value.length > 0;
@@ -27,8 +28,10 @@ function handleMove({
 
     if (!currentPosts || currentPosts.length === 0) return;
 
+    const postOrder = currentPosts.map(post => post.id);
+
     addActionToHistory({
-        postsSnapshot: currentPosts,
+        postOrder,
         currentPost: currentPosts[currentIndex],
         currentIndex,
         targetIndex,
@@ -40,12 +43,13 @@ function handleRewind(historyIndex: number) {
         historyIndex,
     });
 
-    updatePosts({ updatedPosts });
+    updatePosts({ updatedPosts, max: maxPosts });
 }
 
-await fetchPosts().then(posts =>
-    updatePosts({ updatedPosts: posts, max: maxPosts })
-);
+await fetchPosts().then(posts => {
+    setPostsForHistory({ posts });
+    updatePosts({ updatedPosts: posts, max: maxPosts });
+});
 </script>
 
 <template>
