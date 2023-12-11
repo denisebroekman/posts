@@ -37,7 +37,7 @@ body {
     background: var(--grey-100);
     background-image: url('../assets/background.svg');
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: auto;
     line-height: 1.6rem;
     font-size: 1.6rem;
     font-family:
