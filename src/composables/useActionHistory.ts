@@ -4,8 +4,8 @@ export function useActionHistory() {
     const actionHistory = ref<Action[] | undefined>();
 
     /**
-     * @param postOrder - is an array of indexes depicting the current sort order
-     * @param currentPost - is an object of the post that triggered the history entry's creation
+     * @param postOrder - is an array of post ids depicting the current sort order
+     * @param currentPost - is the moved post
      * @param currentIndex - the starting index of the moved post
      * @param targetIndex - the target index of the moved post
      * @type {( postOrder: number[], currentPost: Post, currentIndex: number, targetIndex: number ) => void}
