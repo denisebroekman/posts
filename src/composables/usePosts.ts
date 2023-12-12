@@ -4,7 +4,7 @@ export function usePosts() {
     const allPosts = ref<Post[] | undefined>();
 
     /**
-     * @param updatedPosts - is an array of posts used to update the list of posts on the client
+     * @param updatedPosts - is an array of posts used to update the allPosts ref
      */
     function updatePosts({
         updatedPosts,
@@ -15,7 +15,10 @@ export function usePosts() {
     }
 
     /**
-     *
+     * @param allPosts - is an array of the full list of posts
+     * @param startIndex - is the starting index for the posts to show
+     * @param endIndex - is the ending index for posts to show
+     * @returns [Posts] - an array of posts
      */
     function showPosts({
         allPosts,
@@ -32,6 +35,7 @@ export function usePosts() {
     /**
      * @param targetIndex - the index to which to move the current post
      * @param currentIndex - the starting index of the current post
+     * @returns [number] - an array of ids used to sort the list of posts to display
      */
     function movePost({
         targetIndex,
