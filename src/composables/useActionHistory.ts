@@ -47,11 +47,9 @@ export function useActionHistory() {
 
         const sortArray = actionHistory.value[historyIndex].postOrder;
 
-        const orderedPostsForIndex = allPosts
-            .filter(post => sortArray.includes(post.id))
-            .sort((a, b) => {
-                return sortArray.indexOf(a.id) - sortArray.indexOf(b.id);
-            });
+        const orderedPostsForIndex = allPosts.sort((a, b) => {
+            return sortArray.indexOf(a.id) - sortArray.indexOf(b.id);
+        });
 
         // remove current entry and all previous from the history array
         actionHistory.value?.splice(0, historyIndex + 1);
