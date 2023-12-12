@@ -17,7 +17,7 @@ const postsToShow = () =>
     showPosts({
         allPosts: allPosts.value,
         startIndex: 0,
-        endIndex: maxPosts,
+        amount: maxPosts,
     });
 
 function handleMove({

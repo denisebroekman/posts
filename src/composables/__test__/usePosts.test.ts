@@ -110,7 +110,7 @@ describe('usePosts', () => {
         const postsToShow = showPosts({
             allPosts: allPosts.value,
             startIndex: 0,
-            endIndex: 1,
+            amount: 1,
         });
 
         expect(postsToShow.length).toBe(1);

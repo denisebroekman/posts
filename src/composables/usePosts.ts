@@ -23,13 +23,14 @@ export function usePosts() {
     function showPosts({
         allPosts,
         startIndex,
-        endIndex,
+        amount,
     }: {
         allPosts: Post[] | undefined;
         startIndex: number;
-        endIndex: number;
+        amount: number;
     }): Post[] {
-        return allPosts?.slice(startIndex, endIndex) || [];
+        const amountOfPostsToShow = startIndex + amount;
+        return allPosts?.slice(startIndex, amountOfPostsToShow) || [];
     }
 
     /**
