@@ -8,7 +8,7 @@ export function useActionHistory() {
      * @param currentPost - is the moved post
      * @param currentIndex - the starting index of the moved post
      * @param targetIndex - the target index of the moved post
-     * @type {( postOrder: number[], currentPost: Post, currentIndex: number, targetIndex: number ) => void}
+     
      */
     function addActionToHistory({
         postOrder,
