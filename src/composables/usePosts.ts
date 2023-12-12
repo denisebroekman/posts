@@ -1,21 +1,32 @@
 import { ref } from 'vue';
 
 export function usePosts() {
-    const posts = ref<Post[] | undefined>();
+    const allPosts = ref<Post[] | undefined>();
 
     /**
      * @param updatedPosts - is an array of posts used to update the list of posts on the client
-     * @param max - is an optional number to limit the posts displayed to a maximum
      */
     function updatePosts({
         updatedPosts,
-        max,
     }: {
         updatedPosts: Post[] | undefined;
-        max?: number;
     }) {
-        if (max) updatedPosts = updatedPosts?.slice(0, max);
-        posts.value = updatedPosts;
+        allPosts.value = updatedPosts;
+    }
+
+    /**
+     *
+     */
+    function showPosts({
+        allPosts,
+        startIndex,
+        endIndex,
+    }: {
+        allPosts: Post[] | undefined;
+        startIndex: number;
+        endIndex: number;
+    }): Post[] {
+        return allPosts?.slice(startIndex, endIndex) || [];
     }
 
     /**
@@ -30,14 +41,14 @@ export function usePosts() {
         currentIndex: number;
     }): number[] {
         if (
-            !posts.value ||
-            targetIndex > posts.value.length - 1 ||
+            !allPosts.value ||
+            targetIndex > allPosts.value.length - 1 ||
             targetIndex < 0
         )
             return [];
 
         // create shallow copy for manipulation to avoid side effects
-        const updatedPosts = posts.value.concat();
+        const updatedPosts = allPosts.value.concat();
 
         // map over posts before altering to store array of ids for rewind
         const postOrder = updatedPosts.map(post => post.id) || [];
@@ -55,5 +66,5 @@ export function usePosts() {
         return postOrder;
     }
 
-    return { posts, updatePosts, movePost };
+    return { allPosts, updatePosts, movePost, showPosts };
 }

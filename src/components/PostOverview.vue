@@ -8,12 +8,16 @@ import ActionItem from './PostOverview/ActionItem.vue';
 import ActionList from './PostOverview/ActionList.vue';
 import ActionItemPlaceholder from './PostOverview/ActionItemPlaceholder.vue';
 
-const { posts, updatePosts, movePost } = usePosts();
-const { actionHistory, addActionToHistory, rewindHistory, setPostsForHistory } =
-    useActionHistory();
+const { allPosts, updatePosts, showPosts, movePost } = usePosts();
+const { actionHistory, addActionToHistory, rewindHistory } = useActionHistory();
 
 const maxPosts = 5;
 const hasActions = () => actionHistory.value && actionHistory.value.length > 0;
+const postsToShow = showPosts({
+    allPosts: allPosts.value,
+    startIndex: 0,
+    endIndex: maxPosts - 1,
+});
 
 function handleMove({
     targetIndex,
@@ -24,11 +28,11 @@ function handleMove({
 }) {
     const postOrder = movePost({ targetIndex, currentIndex });
 
-    if (!posts.value || posts.value.length === 0) return;
+    if (!allPosts.value || allPosts.value.length === 0) return;
 
     addActionToHistory({
         postOrder,
-        currentPost: posts.value[targetIndex],
+        currentPost: allPosts.value[targetIndex],
         currentIndex,
         targetIndex,
     });
@@ -36,15 +40,15 @@ function handleMove({
 
 function handleRewind(historyIndex: number) {
     const updatedPosts = rewindHistory({
+        allPosts: allPosts.value || [],
         historyIndex,
     });
 
-    updatePosts({ updatedPosts, max: maxPosts });
+    updatePosts({ updatedPosts });
 }
 
-await fetchPosts().then(posts => {
-    setPostsForHistory({ posts });
-    updatePosts({ updatedPosts: posts, max: maxPosts });
+await fetchPosts().then(fetchedPosts => {
+    updatePosts({ updatedPosts: fetchedPosts });
 });
 </script>
 
@@ -54,7 +58,7 @@ await fetchPosts().then(posts => {
             <h2 class="title--posts">Sortable post list</h2>
             <ul class="post-list" v-auto-animate>
                 <PostItem
-                    v-for="(post, index) in posts"
+                    v-for="(post, index) in postsToShow"
                     v-bind:key="post.id"
                     :index="index"
                     :pulse="!hasActions() && index === 0"

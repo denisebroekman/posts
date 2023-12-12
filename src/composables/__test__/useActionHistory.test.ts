@@ -1,8 +1,7 @@
 import { expect, test, describe, beforeEach } from 'vitest';
 import { useActionHistory } from '../useActionHistory';
 
-const { actionHistory, addActionToHistory, rewindHistory, setPostsForHistory } =
-    useActionHistory();
+const { actionHistory, addActionToHistory, rewindHistory } = useActionHistory();
 
 const allPostsMock: Post[] = [
     {
@@ -72,10 +71,11 @@ const sortedPostsForFirstHistoryItemMock: Post[] = [
 
 const firstActionHistoryMock: Action[] = [firstActionMock];
 const secondActionHistoryMock: Action[] = [secondActionMock, firstActionMock];
+let allPosts: Post[] = allPostsMock;
 
 beforeEach(() => {
     actionHistory.value = [];
-    setPostsForHistory({ posts: allPostsMock });
+    allPosts = allPostsMock;
 });
 
 describe('useActionHistory', () => {
@@ -94,7 +94,7 @@ describe('useActionHistory', () => {
         addActionToHistory(firstActionMock);
         addActionToHistory(secondActionMock);
 
-        rewindHistory({ historyIndex: 0 });
+        rewindHistory({ allPosts, historyIndex: 0 });
 
         expect(actionHistory.value).toStrictEqual(firstActionHistoryMock);
     });
@@ -102,9 +102,7 @@ describe('useActionHistory', () => {
         addActionToHistory(firstActionMock);
         addActionToHistory(secondActionMock);
 
-        const snapshot = rewindHistory({
-            historyIndex: 0,
-        });
+        const snapshot = rewindHistory({ allPosts, historyIndex: 0 });
 
         expect(snapshot).toStrictEqual(sortedPostsForFirstHistoryItemMock);
     });
@@ -112,7 +110,7 @@ describe('useActionHistory', () => {
         addActionToHistory(firstActionMock);
         addActionToHistory(secondActionMock);
 
-        rewindHistory({ historyIndex: 1 });
+        rewindHistory({ allPosts, historyIndex: 1 });
 
         expect(actionHistory.value).toStrictEqual([]);
     });
