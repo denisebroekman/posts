@@ -13,11 +13,12 @@ const { actionHistory, addActionToHistory, rewindHistory } = useActionHistory();
 
 const maxPosts = 5;
 const hasActions = () => actionHistory.value && actionHistory.value.length > 0;
-const postsToShow = showPosts({
-    allPosts: allPosts.value,
-    startIndex: 0,
-    endIndex: maxPosts - 1,
-});
+const postsToShow = () =>
+    showPosts({
+        allPosts: allPosts.value,
+        startIndex: 0,
+        endIndex: maxPosts,
+    });
 
 function handleMove({
     targetIndex,
@@ -58,7 +59,7 @@ await fetchPosts().then(fetchedPosts => {
             <h2 class="title--posts">Sortable post list</h2>
             <ul class="post-list" v-auto-animate>
                 <PostItem
-                    v-for="(post, index) in postsToShow"
+                    v-for="(post, index) in postsToShow()"
                     v-bind:key="post.id"
                     :index="index"
                     :pulse="!hasActions() && index === 0"
