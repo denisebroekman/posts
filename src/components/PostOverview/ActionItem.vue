@@ -7,9 +7,9 @@ defineProps<{
 </script>
 
 <template>
-    <div class="action-item">
+    <li class="action-item">
         Moved post {{ action.currentPost.id }} from index
         {{ action.currentIndex }} to index {{ action.targetIndex }}
         <button @click="onClick(historyIndex)">Time travel</button>
-    </div>
+    </li>
 </template>

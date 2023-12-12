@@ -71,10 +71,11 @@ await fetchPosts().then(fetchedPosts => {
             </ul>
         </section>
         <section>
-            <ActionList>
+            <ActionList :has-actions="hasActions()">
                 <template #title>List of actions committed</template>
+
+                <template #placeholder><ActionItemPlaceholder /></template>
                 <template #actions>
-                    <ActionItemPlaceholder v-if="!hasActions()" />
                     <ActionItem
                         v-for="(action, index) in actionHistory"
                         v-bind:key="index"
