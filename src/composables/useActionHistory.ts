@@ -47,6 +47,7 @@ export function useActionHistory() {
 
         const sortArray = actionHistory.value[historyIndex].postOrder;
 
+        // sort posts by matching their ids to the stored order of ids
         const orderedPostsForIndex = allPosts.sort((a, b) => {
             return sortArray.indexOf(a.id) - sortArray.indexOf(b.id);
         });
@@ -54,7 +55,6 @@ export function useActionHistory() {
         // remove current entry and all previous from the history array
         actionHistory.value?.splice(0, historyIndex + 1);
 
-        // return posts snapshot reference for updating the posts list
         return orderedPostsForIndex;
     }
 
