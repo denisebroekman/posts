@@ -8,7 +8,6 @@ export function useActionHistory() {
      * @param currentPost - is the moved post
      * @param currentIndex - the starting index of the moved post
      * @param targetIndex - the target index of the moved post
-     
      */
     function addActionToHistory({
         postOrder,
@@ -23,7 +22,7 @@ export function useActionHistory() {
             targetIndex,
         };
 
-        if (!actionHistory.value) {
+        if (!actionHistory.value || actionHistory.value.length === 0) {
             // history array is empty or undefined, so we can just push the current action as is
             actionHistory.value = [action];
         } else {
